@@ -40,21 +40,21 @@ An **Input Field** is a way to make the text of a [Text Control](script-Text.md)
 | |**Multi Line Submit** |Allows text to use multiple lines. Only uses a new line when needed.|
 | |**Multi Line Newline** |Allows text to use multiple lines. User can use a newline by pressing the return key.|
 
-|****Placeholder**** ||This is an optional ‘empty’ [Graphic](../api/UnityEngine.UI.Graphic.html.md) to show that  the _*Input Field*_ is empty of text. Note that this ‘empty' graphic still displays even when the _*Input Field*_ is selected (that is; when there is focus on it). eg; "Enter text...".|
+|****Placeholder**** ||This is an optional ‘empty’ [Graphic](xref:UnityEngine.UI.Graphic) to show that  the _*Input Field*_ is empty of text. Note that this ‘empty' graphic still displays even when the _*Input Field*_ is selected (that is; when there is focus on it). eg; "Enter text...".|
 
 |****Caret Blink Rate**** ||Defines the blink rate for the mark placed on the line to indicate a proposed insertion of text.|
 
 |****Selection Color**** ||The background color of the selected portion of text.|
 
-|****Hide Mobile Input** (iOS only)** ||Hides the native input field attached to the onscreen keyboard on mobile devices. Note that this only works on iOS devices.|
+|****Hide Mobile Input**** ||Hides the native input field attached to the onscreen keyboard on mobile devices. Note that this only works on iOS and Android devices.|
 | | | |
 
 ## Events
 
 |**Property:** |**Function:** |
 |:---|:---|
-|**On Value Change** | A [UnityEvent](UnityEvents.md) that is invoked when the text content of the Input Field changes. The event can send the current text content as a `string` type dynamic argument. |
-|**End Edit** | A [UnityEvent](UnityEvents.md) that is invoked when the user finishes editing the text content either by submitting or by clicking somewhere that removes the focus from the Input Field. The event can send the current text content as a `string` type dynamic argument. |
+|**On Value Change** | A [UnityEvent](https://docs.unity3d.com/Manual/UnityEvents.html) that is invoked when the text content of the Input Field changes. The event can send the current text content as a `string` type dynamic argument. |
+|**End Edit** | A [UnityEvent](https://docs.unity3d.com/Manual/UnityEvents.html) that is invoked when the user finishes editing the text content either by submitting or by clicking somewhere that removes the focus from the Input Field. The event can send the current text content as a `string` type dynamic argument. |
 
 
 ## Details
@@ -67,3 +67,7 @@ The _Text_ property of the Text control itself will change as the user types and
 ## Hints
 
 * To obtain the text of the Input Field, use the text property on the InputField component itself, not the text property of the Text component that displays the text. The text property of the Text component may be cropped or may consist of asterisks for passwords.
+
+## Limitations
+
+* On iOS when an external keyboard is connected, the onscreen keyboard will be hidden by the OS but the caret will not appear in the InputField. This is due to a lack of external keyboard support on iOS 13 and older.

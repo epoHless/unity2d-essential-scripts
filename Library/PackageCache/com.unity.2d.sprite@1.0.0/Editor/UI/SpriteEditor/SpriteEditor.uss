@@ -67,6 +67,8 @@
     flex-direction: row;
     min-height: 18px;
     padding-bottom: 2px;
+    max-width : 320px;
+    min-width : 320px;
  }
 
 .spriteFrameModuleInspectorField > Label {
@@ -159,4 +161,8 @@
     white-space : normal;
     font-size : 9px;
     flex: 1 0 0;
+}
+.unity-composite-field__input{
+    flex-shrink: 1;
+    flex-grow: 1;
 }

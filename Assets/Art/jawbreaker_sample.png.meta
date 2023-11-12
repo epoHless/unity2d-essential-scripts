@@ -627,7 +627,7 @@ TextureImporter:
       213: -8841994154585386620
     second: jawbreaker_sample_207
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -644,10 +644,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -657,8 +659,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -686,6 +688,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -697,6 +701,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -709,6 +714,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -721,6 +727,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -733,6 +740,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -5116,9 +5137,217 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      jawbreaker_sample_0: 2797723541974089186
+      jawbreaker_sample_1: 7037660372420454097
+      jawbreaker_sample_10: 7167879002864376950
+      jawbreaker_sample_100: -4573653161815009044
+      jawbreaker_sample_101: -4177376012831585648
+      jawbreaker_sample_102: -800357010144989179
+      jawbreaker_sample_103: -5500312370434567532
+      jawbreaker_sample_104: -4328745970933305233
+      jawbreaker_sample_105: 6182031077103691409
+      jawbreaker_sample_106: 4116913707849843403
+      jawbreaker_sample_107: -7935412304053271282
+      jawbreaker_sample_108: -2251684124135222531
+      jawbreaker_sample_109: 6470565256593743468
+      jawbreaker_sample_11: 5771584531174198885
+      jawbreaker_sample_110: 2697291295660161471
+      jawbreaker_sample_111: -2071942664619309786
+      jawbreaker_sample_112: -8799512816255398536
+      jawbreaker_sample_113: -8715759843556692724
+      jawbreaker_sample_114: -5755284014765805754
+      jawbreaker_sample_115: -9145052097582518989
+      jawbreaker_sample_116: -820974455292536141
+      jawbreaker_sample_117: -5741648107363647681
+      jawbreaker_sample_118: -1720280915617138284
+      jawbreaker_sample_119: 6322287732421485972
+      jawbreaker_sample_12: 6117974419116754989
+      jawbreaker_sample_120: 587267219079509188
+      jawbreaker_sample_121: -4064446137470125469
+      jawbreaker_sample_122: -7548119557613816416
+      jawbreaker_sample_123: 5574067937744699556
+      jawbreaker_sample_124: -2181596102372007252
+      jawbreaker_sample_125: 7431395761758340609
+      jawbreaker_sample_126: 2915689084873214863
+      jawbreaker_sample_127: -4404164111717865124
+      jawbreaker_sample_128: 7293614088128945201
+      jawbreaker_sample_129: 8503156794454150286
+      jawbreaker_sample_13: 889811497391490367
+      jawbreaker_sample_130: 4942096941703171791
+      jawbreaker_sample_131: -4325902779968893404
+      jawbreaker_sample_132: -7183635137412115571
+      jawbreaker_sample_133: 1779536675700086098
+      jawbreaker_sample_134: -5609206150687420713
+      jawbreaker_sample_135: -4112126752259896059
+      jawbreaker_sample_136: 5201120195601302321
+      jawbreaker_sample_137: 6519069657176325281
+      jawbreaker_sample_138: 3037993781390056295
+      jawbreaker_sample_139: 2848240178142767259
+      jawbreaker_sample_14: 4380147372254807173
+      jawbreaker_sample_140: -8655232922438523017
+      jawbreaker_sample_141: -4750883692140310757
+      jawbreaker_sample_142: 8808911557672894958
+      jawbreaker_sample_143: -1599440985551022996
+      jawbreaker_sample_144: -7627029540662678489
+      jawbreaker_sample_145: 6489552926221244993
+      jawbreaker_sample_146: 7606587696739899504
+      jawbreaker_sample_147: 7106664993857993282
+      jawbreaker_sample_148: 3725625764944024581
+      jawbreaker_sample_149: -990406826290109675
+      jawbreaker_sample_15: 1721994774161747531
+      jawbreaker_sample_150: -5769161702929490544
+      jawbreaker_sample_151: 7320423225929331834
+      jawbreaker_sample_152: -4705196892003516619
+      jawbreaker_sample_153: -2240344975944376019
+      jawbreaker_sample_154: 4925169398565876288
+      jawbreaker_sample_155: -6418224233117306303
+      jawbreaker_sample_156: -5210694572914884504
+      jawbreaker_sample_157: 6655143997041499729
+      jawbreaker_sample_158: 123457721955829686
+      jawbreaker_sample_159: -5268233853739934396
+      jawbreaker_sample_16: 1059782649885445426
+      jawbreaker_sample_160: 6225764666614211073
+      jawbreaker_sample_161: -4720255350918374783
+      jawbreaker_sample_162: 8551448044659789810
+      jawbreaker_sample_163: 8091342641482962022
+      jawbreaker_sample_164: -7695430102720573338
+      jawbreaker_sample_165: -239227627528900380
+      jawbreaker_sample_166: -4076346331596508599
+      jawbreaker_sample_167: -3829165329553724889
+      jawbreaker_sample_168: 7424946467381693252
+      jawbreaker_sample_169: -5563432311912900623
+      jawbreaker_sample_17: -2265968407980889774
+      jawbreaker_sample_170: -6343635914617296438
+      jawbreaker_sample_171: 5285922215664701973
+      jawbreaker_sample_172: -6449851057008808117
+      jawbreaker_sample_173: -7655381372979145434
+      jawbreaker_sample_174: -9183898188982467922
+      jawbreaker_sample_175: -6304971085311486196
+      jawbreaker_sample_176: -3690901916731153605
+      jawbreaker_sample_177: -7820370042843996486
+      jawbreaker_sample_178: -3631868025632595314
+      jawbreaker_sample_179: 3805911716720293765
+      jawbreaker_sample_18: -1742062094201699707
+      jawbreaker_sample_180: 7945990358676272145
+      jawbreaker_sample_181: -8701551038409389111
+      jawbreaker_sample_182: 5921347405544935944
+      jawbreaker_sample_183: -3544740989112888338
+      jawbreaker_sample_184: -698983153323977536
+      jawbreaker_sample_185: 2554066586490600751
+      jawbreaker_sample_186: 5939367120727018461
+      jawbreaker_sample_187: 5296042511861052178
+      jawbreaker_sample_188: 8158672711832563668
+      jawbreaker_sample_189: 2562085972770686659
+      jawbreaker_sample_19: -6863816913867614375
+      jawbreaker_sample_190: 8115050816149159103
+      jawbreaker_sample_191: -2955258769840174986
+      jawbreaker_sample_192: 3901976485145342784
+      jawbreaker_sample_193: 8452423326727300840
+      jawbreaker_sample_194: -8955839415082750966
+      jawbreaker_sample_195: 7954130293867970583
+      jawbreaker_sample_196: 6281311648286425501
+      jawbreaker_sample_197: 8520640473715577247
+      jawbreaker_sample_198: 3571873315534930447
+      jawbreaker_sample_199: 8166807002320065720
+      jawbreaker_sample_2: 1993669029779617011
+      jawbreaker_sample_20: -5888182737684564033
+      jawbreaker_sample_200: 3566880260691875682
+      jawbreaker_sample_201: 5624322484927174189
+      jawbreaker_sample_202: -5514412011539574128
+      jawbreaker_sample_203: 7750033132767535410
+      jawbreaker_sample_204: -3074809947659320282
+      jawbreaker_sample_205: 3383028243305154572
+      jawbreaker_sample_206: -4473753511149967520
+      jawbreaker_sample_207: -8841994154585386620
+      jawbreaker_sample_21: 2271161142384876270
+      jawbreaker_sample_22: 7987696268201761662
+      jawbreaker_sample_23: -2244636304493618839
+      jawbreaker_sample_24: -1005014163989777640
+      jawbreaker_sample_25: -5421906129627059814
+      jawbreaker_sample_26: 303142399828346673
+      jawbreaker_sample_27: 5237556930859388077
+      jawbreaker_sample_28: 6681994887567300276
+      jawbreaker_sample_29: -4729319035499036580
+      jawbreaker_sample_3: 2571714671606871411
+      jawbreaker_sample_30: -6943535362955123024
+      jawbreaker_sample_31: -9157194532924383916
+      jawbreaker_sample_32: -4762117382384537241
+      jawbreaker_sample_33: -903200761653548956
+      jawbreaker_sample_34: 3131078394449376490
+      jawbreaker_sample_35: -2336480811324719052
+      jawbreaker_sample_36: -270043718542740667
+      jawbreaker_sample_37: 6579577908404243514
+      jawbreaker_sample_38: 4619991667104415881
+      jawbreaker_sample_39: -8580492590302690662
+      jawbreaker_sample_4: 68455436968537600
+      jawbreaker_sample_40: -6738523653799727374
+      jawbreaker_sample_41: -4808949940797129366
+      jawbreaker_sample_42: 8481534832997857172
+      jawbreaker_sample_43: -8506302324204636401
+      jawbreaker_sample_44: 3631325907238855704
+      jawbreaker_sample_45: -2363683094694073448
+      jawbreaker_sample_46: -5834007803350738766
+      jawbreaker_sample_47: -8198324459667886312
+      jawbreaker_sample_48: 1456344152914737251
+      jawbreaker_sample_49: -4367455232787376106
+      jawbreaker_sample_5: -4415698568553552292
+      jawbreaker_sample_50: -6661978278459327505
+      jawbreaker_sample_51: 3415908745421963810
+      jawbreaker_sample_52: 7015151470115630597
+      jawbreaker_sample_53: -5253226403895603265
+      jawbreaker_sample_54: -7785231228543193441
+      jawbreaker_sample_55: -9081630976437480322
+      jawbreaker_sample_56: -3727386960922699682
+      jawbreaker_sample_57: -8515275197822788944
+      jawbreaker_sample_58: -5655807275156078708
+      jawbreaker_sample_59: 8627707890601893561
+      jawbreaker_sample_6: -7794397612152212551
+      jawbreaker_sample_60: 4528780403831845215
+      jawbreaker_sample_61: 2444421327966467201
+      jawbreaker_sample_62: -5402051402439596362
+      jawbreaker_sample_63: 1302065509836090309
+      jawbreaker_sample_64: -2030350704742050230
+      jawbreaker_sample_65: -1540509378288386026
+      jawbreaker_sample_66: -387388199614132835
+      jawbreaker_sample_67: 4578557515035739961
+      jawbreaker_sample_68: 546512213903583450
+      jawbreaker_sample_69: 6053584505915473987
+      jawbreaker_sample_7: 3595675475100978293
+      jawbreaker_sample_70: 3909470551569706178
+      jawbreaker_sample_71: -1806660350304041516
+      jawbreaker_sample_72: -966318932392698966
+      jawbreaker_sample_73: 6459985876462430554
+      jawbreaker_sample_74: 3166415505345469898
+      jawbreaker_sample_75: -1762687564770235904
+      jawbreaker_sample_76: -553544285354684025
+      jawbreaker_sample_77: 5647925362269389100
+      jawbreaker_sample_78: 8744668005271621865
+      jawbreaker_sample_79: 2795806479698104275
+      jawbreaker_sample_8: -1277672868491207760
+      jawbreaker_sample_80: 4939550509662841611
+      jawbreaker_sample_81: -3063104886610058405
+      jawbreaker_sample_82: 2955463258953669675
+      jawbreaker_sample_83: -3928677304263059321
+      jawbreaker_sample_84: -3082964818045669587
+      jawbreaker_sample_85: -8135175830824407427
+      jawbreaker_sample_86: 5996793361921664476
+      jawbreaker_sample_87: 3603303300985129552
+      jawbreaker_sample_88: -6730163386498279589
+      jawbreaker_sample_89: -1342703386473153847
+      jawbreaker_sample_9: 7704665479966034512
+      jawbreaker_sample_90: -3664948969931371022
+      jawbreaker_sample_91: -6550901079963335554
+      jawbreaker_sample_92: -7745615397460285581
+      jawbreaker_sample_93: 8681383002737083281
+      jawbreaker_sample_94: -4359883433485945468
+      jawbreaker_sample_95: -4227914645745594217
+      jawbreaker_sample_96: 3880504816253522196
+      jawbreaker_sample_97: -8634005856341258418
+      jawbreaker_sample_98: -7506879254175940087
+      jawbreaker_sample_99: -8466103159984046975
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

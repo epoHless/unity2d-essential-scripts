@@ -14,6 +14,7 @@ namespace UnityEditor._2D.Sprite.Editor
         private static class Styles
         {
             public static readonly string invalidEntriesWarning = L10n.Tr("Invalid secondary Texture entries (without names or Textures) have been removed.");
+            public static readonly string invalidSourcesWarning = L10n.Tr("Source texture used as secondary Texture. This is invalid and removed.");
             public static readonly string nameUniquenessWarning = L10n.Tr("Every secondary Texture attached to the Sprite must have a unique name.");
             public static readonly string builtInNameCollisionWarning = L10n.Tr("The names _MainTex and _AlphaTex are reserved for internal use.");
             public static readonly GUIContent panelTitle = EditorGUIUtility.TrTextContent("Secondary Textures");
@@ -38,15 +39,26 @@ namespace UnityEditor._2D.Sprite.Editor
         {
             if (apply)
             {
+                var spriteAssetPath = "";
                 var secondaryTextureDataProvider = spriteEditor.GetDataProvider<ISecondaryTextureDataProvider>();
-
+                var spriteDataProvider = spriteEditor.GetDataProvider<ISpriteEditorDataProvider>();
+                if (spriteDataProvider != null)
+                {
+                    var assetImporter = spriteDataProvider.targetObject as AssetImporter;
+                    spriteAssetPath = assetImporter != null ? assetImporter.assetPath : spriteAssetPath;
+                }
 
                 // Remove invalid entries.
                 var validEntries = secondaryTextureList.FindAll(x => (x.name != null && x.name != "" && x.texture != null));
                 if (validEntries.Count < secondaryTextureList.Count)
                     Debug.Log(Styles.invalidEntriesWarning);
 
-                secondaryTextureDataProvider.textures = validEntries.ToArray();
+                // Remove entries with Sprite's source as secondary textures.
+                var finalEntries = validEntries.FindAll(x => (AssetDatabase.GetAssetPath(x.texture) != spriteAssetPath));
+                if (finalEntries.Count < validEntries.Count)
+                    Debug.Log(Styles.invalidSourcesWarning);
+
+                secondaryTextureDataProvider.textures = finalEntries.ToArray();
             }
 
             return true;
@@ -206,7 +218,7 @@ namespace UnityEditor._2D.Sprite.Editor
             // "Texture" object field
             EditorGUI.BeginChangeCheck();
             r.width = rect.width;
-            r.y += EditorGUIUtility.singleLineHeight;
+            r.y += EditorGUIUtility.singleLineHeight + 2.0f;
             secondaryTexture.texture = EditorGUI.ObjectField(r, Styles.texture, secondaryTexture.texture, typeof(Texture2D), false) as Texture2D;
             dataModified = dataModified || EditorGUI.EndChangeCheck();
 

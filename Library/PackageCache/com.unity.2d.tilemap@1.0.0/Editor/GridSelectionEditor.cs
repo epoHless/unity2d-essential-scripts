@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UnityEditor.Tilemaps
@@ -10,12 +11,20 @@ namespace UnityEditor.Tilemaps
         static class Styles
         {
             public static readonly GUIContent gridSelectionLabel = EditorGUIUtility.TrTextContent("Grid Selection");
+
+            public static readonly string iconPath = "Packages/com.unity.2d.tilemap/Editor/Icons/GridSelection.png";
+        }
+
+        private void OnValidate()
+        {
+            var position = GridSelection.position;
+            GridSelection.position = new BoundsInt(position.min, position.max - position.min);
         }
 
         private void OnEnable()
         {
             // Give focus to Inspector window for keyboard actions
-            EditorWindow.FocusWindowIfItsOpen<InspectorWindow>();
+            EditorApplication.delayCall += () => EditorWindow.FocusWindowIfItsOpen<InspectorWindow>();
         }
 
         public override void OnInspectorGUI()
@@ -32,17 +41,26 @@ namespace UnityEditor.Tilemaps
                     GridPaintingState.UnlockGridPaintPaletteClipboardForEditing();
                     GridPaintingState.RepaintGridPaintPaletteWindow();
                 }
+                else
+                {
+                    GridSelection.SaveStandalone();
+                }
             }
         }
 
         protected override void OnHeaderGUI()
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.inspectorBig);
-            Texture2D icon = AssetPreview.GetMiniTypeThumbnail(typeof(Grid));
+            Texture2D icon = EditorGUIUtility.LoadIcon(Styles.iconPath);
             GUILayout.Label(icon, GUILayout.Width(iconSize), GUILayout.Height(iconSize));
             EditorGUILayout.BeginVertical();
             GUILayout.Label(Styles.gridSelectionLabel);
+            EditorGUI.BeginChangeCheck();
             GridSelection.position = EditorGUILayout.BoundsIntField(GUIContent.none, GridSelection.position);
+            if (EditorGUI.EndChangeCheck())
+            {
+                OnValidate();
+            }
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
             DrawHeaderHelpAndSettingsGUI(GUILayoutUtility.GetLastRect());

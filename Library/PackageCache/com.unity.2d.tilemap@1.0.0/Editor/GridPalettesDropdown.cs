@@ -14,13 +14,13 @@ namespace UnityEditor.Tilemaps
         {
             public int Count()
             {
-                return GridPalettes.palettes.Count + 1;
+                return GridPaintingState.palettes.Count + 1;
             }
 
             public object GetItem(int index)
             {
-                if (index < GridPalettes.palettes.Count)
-                    return GridPalettes.palettes[index];
+                if (index < GridPaintingState.palettes.Count)
+                    return GridPaintingState.palettes[index];
 
                 return null;
             }
@@ -52,9 +52,9 @@ namespace UnityEditor.Tilemaps
 
             public string GetName(int index)
             {
-                if (index < GridPalettes.palettes.Count)
-                    return GridPalettes.palettes[index].name;
-                else if (index == GridPalettes.palettes.Count)
+                if (index < GridPaintingState.palettes.Count)
+                    return GridPaintingState.palettes[index].name;
+                else if (index == GridPaintingState.palettes.Count)
                     return "Create New Palette";
                 else
                     return "";
@@ -67,7 +67,7 @@ namespace UnityEditor.Tilemaps
 
             public int[] GetSeperatorIndices()
             {
-                return new int[] { GridPalettes.palettes.Count - 1 };
+                return new int[] { GridPaintingState.palettes.Count - 1 };
             }
         }
     }

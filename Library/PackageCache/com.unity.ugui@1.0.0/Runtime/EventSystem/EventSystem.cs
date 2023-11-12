@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace UnityEngine.EventSystems
 {
@@ -220,6 +222,7 @@ namespace UnityEngine.EventSystems
                     return rhs.module.renderOrderPriority.CompareTo(lhs.module.renderOrderPriority);
             }
 
+            // Renderer sorting
             if (lhs.sortingLayer != rhs.sortingLayer)
             {
                 // Uses the layer value to properly compare the relative order of the layers.
@@ -237,6 +240,17 @@ namespace UnityEngine.EventSystems
 
             if (lhs.distance != rhs.distance)
                 return lhs.distance.CompareTo(rhs.distance);
+
+            #if PACKAGE_PHYSICS2D
+			// Sorting group
+            if (lhs.sortingGroupID != SortingGroup.invalidSortingGroupID && rhs.sortingGroupID != SortingGroup.invalidSortingGroupID)
+            {
+                if (lhs.sortingGroupID != rhs.sortingGroupID)
+                    return lhs.sortingGroupID.CompareTo(rhs.sortingGroupID);
+                if (lhs.sortingGroupOrder != rhs.sortingGroupOrder)
+                    return rhs.sortingGroupOrder.CompareTo(lhs.sortingGroupOrder);
+            }
+            #endif
 
             return lhs.index.CompareTo(rhs.index);
         }
@@ -282,6 +296,7 @@ namespace UnityEngine.EventSystems
         /// </remarks>
         /// <example>
         /// <code>
+        /// <![CDATA[
         /// using UnityEngine;
         /// using System.Collections;
         /// using UnityEngine.EventSystems;
@@ -301,21 +316,151 @@ namespace UnityEngine.EventSystems
         ///         }
         ///     }
         /// }
-        /// </code>
+        /// ]]>
+        ///</code>
         /// </example>
         public bool IsPointerOverGameObject(int pointerId)
         {
             return m_CurrentInputModule != null && m_CurrentInputModule.IsPointerOverGameObject(pointerId);
         }
 
+        // This code is disabled unless the UI Toolkit package or the com.unity.modules.uielements module are present.
+        // The UIElements module is always present in the Editor but it can be stripped from a project build if unused.
+#if PACKAGE_UITOOLKIT
+        private struct UIToolkitOverrideConfig
+        {
+            public EventSystem activeEventSystem;
+            public bool sendEvents;
+            public bool createPanelGameObjectsOnStart;
+        }
+
+        private static UIToolkitOverrideConfig s_UIToolkitOverride = new UIToolkitOverrideConfig
+        {
+            activeEventSystem = null,
+            sendEvents = true,
+            createPanelGameObjectsOnStart = true
+        };
+
+        private bool isUIToolkitActiveEventSystem =>
+            s_UIToolkitOverride.activeEventSystem == this || s_UIToolkitOverride.activeEventSystem == null;
+
+        private bool sendUIToolkitEvents =>
+            s_UIToolkitOverride.sendEvents && isUIToolkitActiveEventSystem;
+
+        private bool createUIToolkitPanelGameObjectsOnStart =>
+            s_UIToolkitOverride.createPanelGameObjectsOnStart && isUIToolkitActiveEventSystem;
+#endif
+
+        /// <summary>
+        /// Sets how UI Toolkit runtime panels receive events and handle selection
+        /// when interacting with other objects that use the EventSystem, such as components from the Unity UI package.
+        /// </summary>
+        /// <param name="activeEventSystem">
+        /// The EventSystem used to override UI Toolkit panel events and selection.
+        /// If activeEventSystem is null, UI Toolkit panels will use current enabled EventSystem
+        /// or, if there is none, the default InputManager-based event system will be used.
+        /// </param>
+        /// <param name="sendEvents">
+        /// If true, UI Toolkit events will come from this EventSystem
+        /// instead of the default InputManager-based event system.
+        /// </param>
+        /// <param name="createPanelGameObjectsOnStart">
+        /// If true, UI Toolkit panels' unassigned selectableGameObject will be automatically initialized
+        /// with children GameObjects of this EventSystem on Start.
+        /// </param>
+        public static void SetUITookitEventSystemOverride(EventSystem activeEventSystem, bool sendEvents = true, bool createPanelGameObjectsOnStart = true)
+        {
+#if PACKAGE_UITOOLKIT
+            UIElementsRuntimeUtility.UnregisterEventSystem(UIElementsRuntimeUtility.activeEventSystem);
+
+            s_UIToolkitOverride = new UIToolkitOverrideConfig
+            {
+                activeEventSystem = activeEventSystem,
+                sendEvents = sendEvents,
+                createPanelGameObjectsOnStart = createPanelGameObjectsOnStart,
+            };
+
+            if (sendEvents)
+            {
+                var eventSystem = activeEventSystem != null ? activeEventSystem : EventSystem.current;
+                if (eventSystem.isActiveAndEnabled)
+                    UIElementsRuntimeUtility.RegisterEventSystem(activeEventSystem);
+            }
+#endif
+        }
+
+#if PACKAGE_UITOOLKIT
+        private bool m_Started;
+        private bool m_IsTrackingUIToolkitPanels;
+
+        private void StartTrackingUIToolkitPanels()
+        {
+            if (createUIToolkitPanelGameObjectsOnStart)
+            {
+                foreach (BaseRuntimePanel panel in UIElementsRuntimeUtility.GetSortedPlayerPanels())
+                {
+                    CreateUIToolkitPanelGameObject(panel);
+                }
+                UIElementsRuntimeUtility.onCreatePanel += CreateUIToolkitPanelGameObject;
+                m_IsTrackingUIToolkitPanels = true;
+            }
+        }
+
+        private void StopTrackingUIToolkitPanels()
+        {
+            if (m_IsTrackingUIToolkitPanels)
+            {
+                UIElementsRuntimeUtility.onCreatePanel -= CreateUIToolkitPanelGameObject;
+                m_IsTrackingUIToolkitPanels = false;
+            }
+        }
+
+        private void CreateUIToolkitPanelGameObject(BaseRuntimePanel panel)
+        {
+            if (panel.selectableGameObject == null)
+            {
+                var go = new GameObject(panel.name, typeof(PanelEventHandler), typeof(PanelRaycaster));
+                go.transform.SetParent(transform);
+                panel.selectableGameObject = go;
+                panel.destroyed += () => DestroyImmediate(go);
+            }
+        }
+#endif
+
+        protected override void Start()
+        {
+            base.Start();
+
+#if PACKAGE_UITOOLKIT
+            m_Started = true;
+            StartTrackingUIToolkitPanels();
+#endif
+        }
+
         protected override void OnEnable()
         {
             base.OnEnable();
             m_EventSystems.Add(this);
+
+#if PACKAGE_UITOOLKIT
+            if (m_Started && !m_IsTrackingUIToolkitPanels)
+            {
+                StartTrackingUIToolkitPanels();
+            }
+            if (sendUIToolkitEvents)
+            {
+                UIElementsRuntimeUtility.RegisterEventSystem(this);
+            }
+#endif
         }
 
         protected override void OnDisable()
         {
+#if PACKAGE_UITOOLKIT
+            StopTrackingUIToolkitPanels();
+            UIElementsRuntimeUtility.UnregisterEventSystem(this);
+#endif
+
             if (m_CurrentInputModule != null)
             {
                 m_CurrentInputModule.DeactivateModule();

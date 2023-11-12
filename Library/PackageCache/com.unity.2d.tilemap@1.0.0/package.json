@@ -7,5 +7,7 @@
     "keywords": ["2d", "Tilemap"],
     "category": "2D",
     "dependencies": {
+		"com.unity.modules.tilemap": "1.0.0",
+		"com.unity.modules.uielements": "1.0.0"
     }
 }
